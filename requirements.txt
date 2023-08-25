@@ -1,0 +1,5 @@
+aiogram_dialog
+asyncpg
+python-dotenv
+redis
+tortoise-api-model
