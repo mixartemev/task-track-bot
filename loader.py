@@ -20,6 +20,6 @@ async def db_init(gen_sch: bool = False):
 
 
 sess = AiohttpSession()
-bt = Bot(token=env('BT'), session=sess, parse_mode=ParseMode.MARKDOWN_V2)
+bt = Bot(token=env('BT'), session=sess, parse_mode=ParseMode.MARKDOWN)
 storage = RedisStorage.from_url(env('REDIS_DSN'), key_builder=DefaultKeyBuilder(with_destiny=True))
 dp = Dispatcher(storage=storage)

@@ -5,7 +5,7 @@ from aiogram.filters import CommandStart
 from aiogram_dialog import setup_dialogs
 from dialogs.dialogs import start_dlg
 from dialogs.events.start import start
-from handlers import user_set_status, del_unexp_msg
+from handlers import user_set_status
 
 from loader import dp, bt, db_init
 
@@ -18,7 +18,6 @@ setup_dialogs(dp)
 
 # aiogram
 dp.my_chat_member.register(user_set_status)  # change user.status blocked/active
-dp.message.register(del_unexp_msg)  # del all others messages
 
 
 async def main():
