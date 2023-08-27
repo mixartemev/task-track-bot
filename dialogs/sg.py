@@ -8,3 +8,4 @@ class HomeSG(StatesGroup):
     editTask = State()
     setDeadline = State()
     setDoer = State()
+    createdTasks = State()

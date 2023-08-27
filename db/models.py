@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from enum import IntEnum
 from typing import Type
 
@@ -20,6 +20,7 @@ class TaskStatus(IntEnum):
 
 
 class User(Model):
+    id: int = fields.BigIntField(True)
     name: str = fields.CharField(63)
     status: UserStatus = fields.IntEnumField(UserStatus, default=UserStatus.member)
     referrer: fields.ForeignKeyNullableRelation["User"] = fields.ForeignKeyField("models.User", related_name="referrals", null=True)
@@ -44,7 +45,7 @@ class Task(Model):
     doer_id: int
     creator: fields.ForeignKeyNullableRelation[User] = fields.ForeignKeyField("models.User", related_name="created_tasks")
     creator_id: int
-    deadline: datetime = fields.DatetimeField(default=datetime.now()+timedelta(days=7))
+    deadline: date = fields.DateField(null=True)
     parent: fields.ForeignKeyNullableRelation["Task"] = fields.ForeignKeyField("models.Task", related_name="subtasks", null=True)
     parent_id: int
     created_at: datetime = fields.DatetimeField(auto_now_add=True)

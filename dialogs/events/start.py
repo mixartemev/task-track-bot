@@ -42,6 +42,14 @@ async def set_deadline(cbq: CallbackQuery, mc: ManagedCalendar, dialog_manager: 
     await task.save()
     await dialog_manager.switch_to(HomeSG.editTask)
 
+async def set_doer(message: Message, mi: MessageInput, dialog_manager: DialogManager):
+    tid = dialog_manager.dialog_data['task']
+    task = await Task[tid]
+    doer = await User[int(txt)] if (txt := message.text).isnumeric() else await User.get(name=txt.strip().replace('@', ''))
+    task.doer = doer
+    await task.save()
+    await dialog_manager.switch_to(HomeSG.editTask)
+
 async def _check_invite_link(msg: Message):
     me: TgUser = msg.from_user
     user, cr = await user_upsert(me)
@@ -55,7 +63,6 @@ async def _check_invite_link(msg: Message):
         else:
             return await user.update_from_dict({'referrer_id': ref_id}).save()
         return await msg.answer(rs)
-
 
 async def del_msg(cb: CallbackQuery, button: Button, mng: DialogManager):
     await cb.message.delete()

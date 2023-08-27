@@ -4,7 +4,7 @@ from db.models import User, UserStatus
 
 
 async def user_upsert(u: TgUser) -> (User, bool):
-    user, is_created = await User.update_or_create({'name': u.username}, id=u.id)
+    user, is_created = await User.update_or_create({'name': u.username or u.full_name}, id=u.id)
     return user, is_created
 
 
